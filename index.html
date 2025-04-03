@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #464343;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background: rgb(194, 194, 194);
+            padding: 55px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            width: 300px;
+            text-align: center;
+        }
+        input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin:23px 0;
+            border: 1px solid #292626;
+            border-radius: 5px;
+            text-align: left;
+            padding-left: 5px;
+            direction: ltr;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+        }
+        .btn {
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .btn.warning {
+            background-color: red;
+            box-shadow: 0 0 10px red;
+            font-weight: bold;
+        }
+        .btn.success {
+            background-color: green;
+            box-shadow: 0 0 10px green;
+            transform: scale(1.1);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>legend Form</h1>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button class="btn" id="submitBtn">Submit</button>
+    </div>
+
+    <script>
+        const btn = document.getElementById('submitBtn');
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+        const container = document.querySelector('.container');
+
+        function resetUsernameOnType() {
+            username.value = '';
+            username.removeEventListener('keydown', resetUsernameOnType);
+        }
+
+        username.addEventListener('focus', function() {
+            username.value = '';
+        });
+
+        btn.addEventListener('mouseover', function () {
+            if (username.value.trim() === '' || password.value.trim() === '') {
+                btn.textContent = 'BC* Pahale Data Fill Kar';
+                btn.classList.add('warning');
+                let maxX = container.clientWidth - btn.clientWidth - 20;
+                let maxY = container.clientHeight - btn.clientHeight - 20;
+                btn.style.left = Math.random() * maxX + 'px';
+                btn.style.top = Math.random() * maxY + 'px';
+            }
+        });
+
+        document.addEventListener('input', function () {
+            if (username.value.trim() !== '' && password.value.trim() !== '') {
+                btn.textContent = 'Haa ab Submit kar';
+                btn.classList.remove('warning');
+                btn.classList.add('success');
+                btn.style.position = 'static';
+                btn.style.transform = 'translateX(0) scale(1.1)';
+            } else if (password.value.trim() === '') {
+                btn.textContent = 'BC* Pahale Data Fill Kar';
+                btn.classList.add('warning');
+            }
+        });
+    </script>
+</body>
+</html>
